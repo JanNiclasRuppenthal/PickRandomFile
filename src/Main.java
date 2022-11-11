@@ -6,14 +6,19 @@ public class Main
     public static void main(String[] args)
     {
         String pathToDirectory = args[0];
+        String fileExtension = args[1];
         File directory = new File(pathToDirectory);
+        File tempFile = new File(pathToDirectory);
 
         if (!directory.isDirectory())
         {
             throw new RuntimeException(pathToDirectory + " is not a directory!");
         }
-
-        directory = pickUpFile(directory);
+        
+        while (!directory.getName().endsWith(fileExtension))
+        {
+            directory = pickUpFile(tempFile);
+        }
 
         System.out.println("Pick up file: " + directory.getName() + " in " + directory.getPath());
     }
